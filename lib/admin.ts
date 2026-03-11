@@ -1,17 +1,20 @@
 import { verifyPassword } from "@/lib/security";
 
 export function getAdminUsername() {
-  return process.env.ADMIN_USERNAME || "admin";
+  return (process.env.ADMIN_USERNAME || "admin").trim().toLowerCase();
 }
 
 export function verifyAdminCredentials(username: string, password: string) {
-  if (username !== getAdminUsername()) {
+  const normalizedUsername = username.trim().toLowerCase();
+  const normalizedPassword = password.trim();
+
+  if (normalizedUsername !== getAdminUsername()) {
     return false;
   }
 
   if (process.env.ADMIN_PASSWORD_HASH) {
-    return verifyPassword(password, process.env.ADMIN_PASSWORD_HASH);
+    return verifyPassword(normalizedPassword, process.env.ADMIN_PASSWORD_HASH.trim());
   }
 
-  return password === (process.env.ADMIN_PASSWORD || "change-this-admin-password");
+  return normalizedPassword === (process.env.ADMIN_PASSWORD || "change-this-admin-password").trim();
 }
