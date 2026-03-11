@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import type { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SessionPayload, SessionRole } from "@/lib/types";
@@ -31,6 +32,16 @@ export function createSessionToken(input: { sub: string; role: SessionRole }) {
   const encodedPayload = encodeBase64Url(JSON.stringify(payload));
   const signature = sign(encodedPayload);
   return `${encodedPayload}.${signature}`;
+}
+
+function getCookieOptions(maxAge: number) {
+  return {
+    httpOnly: true,
+    sameSite: "lax" as const,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge
+  };
 }
 
 export function parseSessionToken(token: string | undefined) {
@@ -73,24 +84,26 @@ export async function setSession(input: { sub: string; role: SessionRole }) {
   const cookieStore = await cookies();
   const token = createSessionToken(input);
 
-  cookieStore.set(SESSION_COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: SESSION_TTL_MS / 1000
-  });
+  cookieStore.set(SESSION_COOKIE, token, getCookieOptions(SESSION_TTL_MS / 1000));
+}
+
+export function setSessionOnResponse(
+  response: NextResponse,
+  input: { sub: string; role: SessionRole }
+) {
+  const token = createSessionToken(input);
+  response.cookies.set(SESSION_COOKIE, token, getCookieOptions(SESSION_TTL_MS / 1000));
+  return response;
 }
 
 export async function clearSession() {
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE, "", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 0
-  });
+  cookieStore.set(SESSION_COOKIE, "", getCookieOptions(0));
+}
+
+export function clearSessionOnResponse(response: NextResponse) {
+  response.cookies.set(SESSION_COOKIE, "", getCookieOptions(0));
+  return response;
 }
 
 export async function requireUserSession() {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUserByUsername } from "@/lib/store";
 import { verifyPassword } from "@/lib/security";
-import { setSession } from "@/lib/session";
+import { setSessionOnResponse } from "@/lib/session";
 
 function buildRedirect(request: NextRequest, path: string, message?: string) {
   const url = new URL(path, request.url);
@@ -25,6 +25,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.redirect(buildRedirect(request, "/login", "帳號或密碼錯誤。"), 303);
   }
 
-  await setSession({ sub: user.id, role: "user" });
-  return NextResponse.redirect(buildRedirect(request, "/dashboard"), 303);
+  const response = NextResponse.redirect(buildRedirect(request, "/dashboard"), 303);
+  return setSessionOnResponse(response, { sub: user.id, role: "user" });
 }

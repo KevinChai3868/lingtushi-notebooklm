@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyAdminCredentials } from "@/lib/admin";
-import { setSession } from "@/lib/session";
+import { setSessionOnResponse } from "@/lib/session";
 
 function buildRedirect(request: NextRequest, path: string, message?: string) {
   const url = new URL(path, request.url);
@@ -19,6 +19,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.redirect(buildRedirect(request, "/admin/login", "管理者帳密錯誤。"), 303);
   }
 
-  await setSession({ sub: username, role: "admin" });
-  return NextResponse.redirect(buildRedirect(request, "/admin"), 303);
+  const response = NextResponse.redirect(buildRedirect(request, "/admin"), 303);
+  return setSessionOnResponse(response, { sub: username, role: "admin" });
 }
