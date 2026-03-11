@@ -99,6 +99,8 @@ ADMIN_PASSWORD_HASH=如果你想改用雜湊後密碼，可提供此值
 - 若使用雲端 PostgreSQL，系統會自動走資料庫，不再使用本機 JSON
 - 若部署平台是 serverless，這一版仍可運作，前提是 `DATABASE_URL` 必須正確設定
 
+Deployment note: production redeploy trigger updated on 2026-03-11.
+
 ## 專案結構
 
 ```text
