@@ -37,7 +37,7 @@ export function SiteHeader({ session }: SiteHeaderProps) {
               <Link href="/login" className={cn(linkButtonClass, "border border-border bg-card text-foreground hover:bg-white")}>
                 使用者登入
               </Link>
-              <Link href="/admin-auth" className={cn(linkButtonClass, "bg-primary text-white hover:bg-primary/90 shadow-[0_10px_24px_rgba(15,93,115,0.18)]")}>
+              <Link href="/admin/login" className={cn(linkButtonClass, "bg-primary text-white hover:bg-primary/90 shadow-[0_10px_24px_rgba(15,93,115,0.18)]")}>
                 管理者登入
               </Link>
             </>
