@@ -45,33 +45,41 @@ function getCookieOptions(maxAge: number) {
 }
 
 export function parseSessionToken(token: string | undefined) {
-  if (!token) {
+  try {
+    if (!token) {
+      return null;
+    }
+
+    const [encodedPayload, signature] = token.split(".");
+    if (!encodedPayload || !signature) {
+      return null;
+    }
+
+    const expectedSignature = sign(encodedPayload);
+    const signatureBuffer = Buffer.from(signature);
+    const expectedBuffer = Buffer.from(expectedSignature);
+
+    if (signatureBuffer.length !== expectedBuffer.length) {
+      return null;
+    }
+
+    if (!timingSafeEqual(signatureBuffer, expectedBuffer)) {
+      return null;
+    }
+
+    const payload = JSON.parse(decodeBase64Url(encodedPayload)) as SessionPayload;
+    if (!payload?.sub || !payload?.role || typeof payload.exp !== "number") {
+      return null;
+    }
+
+    if (payload.exp < Date.now()) {
+      return null;
+    }
+
+    return payload;
+  } catch {
     return null;
   }
-
-  const [encodedPayload, signature] = token.split(".");
-  if (!encodedPayload || !signature) {
-    return null;
-  }
-
-  const expectedSignature = sign(encodedPayload);
-  const signatureBuffer = Buffer.from(signature);
-  const expectedBuffer = Buffer.from(expectedSignature);
-
-  if (signatureBuffer.length !== expectedBuffer.length) {
-    return null;
-  }
-
-  if (!timingSafeEqual(signatureBuffer, expectedBuffer)) {
-    return null;
-  }
-
-  const payload = JSON.parse(decodeBase64Url(encodedPayload)) as SessionPayload;
-  if (payload.exp < Date.now()) {
-    return null;
-  }
-
-  return payload;
 }
 
 export async function getSession() {
