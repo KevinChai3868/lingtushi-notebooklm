@@ -1,9 +1,5 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
-import { SiteHeader } from "@/components/site-header";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export default async function AdminLoginPage({
   searchParams
@@ -18,33 +14,100 @@ export default async function AdminLoginPage({
   const { message } = await searchParams;
 
   return (
-    <div className="min-h-screen">
-      <SiteHeader session={session} />
-      <main className="mx-auto max-w-xl px-4 py-10 sm:px-6 lg:px-8">
-        <Card className="p-6 sm:p-8">
-          <div className="text-sm font-semibold tracking-[0.28em] text-primary">靈圖師</div>
-          <h1 className="text-3xl font-black">管理者登入</h1>
-          <p className="mt-2 text-sm leading-7 text-muted">
-            你可在審核後台核准申請、建立帳號密碼，並管理靈圖師的使用者存取。
-          </p>
-          {message ? (
-            <div className="mt-4 rounded-2xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm">
-              {message}
+    <html lang="zh-Hant">
+      <body style={{ margin: 0, fontFamily: "sans-serif", background: "#f6f1e7", color: "#172033" }}>
+        <main
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px"
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "480px",
+              background: "#fffdf8",
+              border: "1px solid #d6c8ae",
+              borderRadius: "24px",
+              padding: "32px",
+              boxShadow: "0 16px 50px rgba(23,32,51,0.08)"
+            }}
+          >
+            <div style={{ fontSize: "13px", letterSpacing: "0.24em", color: "#0f5d73", fontWeight: 700 }}>
+              靈圖師
             </div>
-          ) : null}
-          <form action="/api/admin/login" method="post" className="mt-6 grid gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-semibold">管理者帳號</label>
-              <Input name="username" required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold">管理者密碼</label>
-              <Input name="password" type="password" required />
-            </div>
-            <Button type="submit">登入審核後台</Button>
-          </form>
-        </Card>
-      </main>
-    </div>
+            <h1 style={{ marginTop: "12px", marginBottom: "8px", fontSize: "32px" }}>管理者登入</h1>
+            <p style={{ marginTop: 0, color: "#6a7282", lineHeight: 1.8 }}>
+              登入後台以審核申請、建立帳密並管理平台使用者。
+            </p>
+
+            {message ? (
+              <div
+                style={{
+                  marginTop: "16px",
+                  border: "1px solid rgba(214,95,77,0.3)",
+                  background: "rgba(214,95,77,0.1)",
+                  borderRadius: "16px",
+                  padding: "12px 14px",
+                  fontSize: "14px"
+                }}
+              >
+                {message}
+              </div>
+            ) : null}
+
+            <form action="/api/admin/login" method="post" style={{ marginTop: "24px", display: "grid", gap: "16px" }}>
+              <label style={{ display: "grid", gap: "8px", fontSize: "14px", fontWeight: 600 }}>
+                管理者帳號
+                <input
+                  name="username"
+                  required
+                  style={{
+                    height: "44px",
+                    borderRadius: "12px",
+                    border: "1px solid #d6c8ae",
+                    padding: "0 12px",
+                    fontSize: "14px"
+                  }}
+                />
+              </label>
+              <label style={{ display: "grid", gap: "8px", fontSize: "14px", fontWeight: 600 }}>
+                管理者密碼
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  style={{
+                    height: "44px",
+                    borderRadius: "12px",
+                    border: "1px solid #d6c8ae",
+                    padding: "0 12px",
+                    fontSize: "14px"
+                  }}
+                />
+              </label>
+              <button
+                type="submit"
+                style={{
+                  height: "44px",
+                  borderRadius: "12px",
+                  border: 0,
+                  background: "#0f5d73",
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  cursor: "pointer"
+                }}
+              >
+                登入審核後台
+              </button>
+            </form>
+          </div>
+        </main>
+      </body>
+    </html>
   );
 }
