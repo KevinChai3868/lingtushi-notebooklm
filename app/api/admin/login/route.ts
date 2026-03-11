@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   const password = String(formData.get("password") || "").trim();
 
   if (!verifyAdminCredentials(username, password)) {
-    return NextResponse.redirect(buildRedirect(request, "/admin/login", "管理者帳密錯誤。"), 303);
+    return NextResponse.redirect(buildRedirect(request, "/admin-auth", "管理者帳密錯誤。"), 303);
   }
 
   const response = NextResponse.redirect(buildRedirect(request, "/admin"), 303);
