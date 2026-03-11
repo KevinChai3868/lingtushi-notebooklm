@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(240, 170, 82, 0.28), transparent 30%),
+    radial-gradient(circle at right 20%, rgba(15, 93, 115, 0.16), transparent 26%),
+    linear-gradient(180deg, #fcf8ef 0%, #f4efe6 100%);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0f5d73 #f4efe6;
+}
+
+.panel-grid {
+  background-image:
+    linear-gradient(rgba(15, 93, 115, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 93, 115, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.range-slider {
+  accent-color: #0f5d73;
+}
+
+textarea,
+input,
+select {
+  @apply outline-none;
+}

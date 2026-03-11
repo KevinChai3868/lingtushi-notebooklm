@@ -1,0 +1,24 @@
+[
+  {
+    "id": "33817786-9fd3-4f9b-9107-0e4c65ca8232",
+    "fullName": "阿亮",
+    "email": "3a01chatgpt@gmail.com",
+    "organization": "永春高中",
+    "username": "3a01chatgpt@gmail.com",
+    "passwordHash": "de363745779b3b29d3f1eec97ee2b909:609fdd2c2e8011c9c941db58f83fce9c01d2c99e063d7293f46212b0347c1e7cc6fb1a32840679c3ded2ba897759d49accee86b1214b74f572eaccf0f8676d31",
+    "approvedAt": "2026-03-11T04:44:36.052Z",
+    "applicationId": "5cbb3308-43aa-452e-9a35-5e3b69e36962",
+    "createdAt": "2026-03-11T04:44:36.052Z"
+  },
+  {
+    "id": "5bfd8e83-bedb-42d7-8304-33bf933772ae",
+    "fullName": "翟家甫",
+    "email": "kevin60088@gmail.com",
+    "organization": "清水高中",
+    "username": "kevin60088@gmail.com",
+    "passwordHash": "6d68a3f4139eacd55f3842e67cddbf7c:f8abd7ca0a8e166c860f98a1e7e715f4bc99325854286f700cb80aa2bba247c1393c22958b7fa85ae4c060d430eef2e68e48576c1bd007bdda5475510f5a30f9",
+    "approvedAt": "2026-03-11T04:35:27.670Z",
+    "applicationId": "7b6cb106-ea91-419b-a291-75531a7bd9ac",
+    "createdAt": "2026-03-11T04:35:27.670Z"
+  }
+]

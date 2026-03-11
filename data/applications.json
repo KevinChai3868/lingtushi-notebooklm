@@ -1,0 +1,26 @@
+[
+  {
+    "id": "5cbb3308-43aa-452e-9a35-5e3b69e36962",
+    "fullName": "阿亮",
+    "email": "3a01chatgpt@gmail.com",
+    "organization": "永春高中",
+    "reason": "生成圖表資訊",
+    "notes": "",
+    "status": "approved",
+    "reviewedAt": "2026-03-11T04:44:36.066Z",
+    "reviewNotes": "",
+    "createdAt": "2026-03-11T04:43:52.848Z"
+  },
+  {
+    "id": "7b6cb106-ea91-419b-a291-75531a7bd9ac",
+    "fullName": "翟家甫",
+    "email": "kevin60088@gmail.com",
+    "organization": "清水高中",
+    "reason": "生成圖表資訊",
+    "notes": "",
+    "status": "approved",
+    "reviewedAt": "2026-03-11T04:35:27.678Z",
+    "reviewNotes": "",
+    "createdAt": "2026-03-11T04:34:40.209Z"
+  }
+]
